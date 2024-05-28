@@ -1,0 +1,11 @@
+<div class="modal" [class.show]="show">
+  <div class="modal-content">
+    <p>¿Estás seguro de eliminar el producto {{productToDelete?.name}}?</p>
+
+    <div class="actions">
+      <button class="button-cancel" (click)="closeModal()">Cancelar</button>
+      <button class="button-delete" (click)="deleteProduct()">Eliminar</button>
+    </div>
+
+  </div>
+</div>

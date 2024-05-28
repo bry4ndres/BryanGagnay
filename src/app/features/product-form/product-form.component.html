@@ -1,0 +1,62 @@
+<div class="form-container">
+  <h2>Formulario de Registro</h2>
+  <hr class="line">
+  <form [formGroup]="productForm">
+    <div class="form-row">
+      <div class="form-group" [class.invalid-input]="productForm.get('id')?.invalid && productForm.get('id')?.touched">
+        <label for="id">ID</label>
+        <input type="text" formControlName="id" placeholder="ID" [disabled]="!isNewProduct">
+        <div *ngIf="productForm.get('id')?.invalid && productForm.get('id')?.touched" class="error-message">
+          El campo es requerido!
+        </div>
+      </div>
+
+      <div class="form-group" [class.invalid-input]="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+        <label for="name">Nombre</label>
+        <input type="text" formControlName="name" placeholder="Nombre del producto">
+        <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="error-message">
+          <div *ngIf="productForm.get('name')?.errors?.['required']">El campo es requerido!</div>
+          <div *ngIf="productForm.get('name')?.errors?.['minlength']">El nombre debe tener al menos 5 caracteres!</div>
+          <div *ngIf="productForm.get('name')?.errors?.['maxlength']">El nombre no puede tener más de 100 caracteres!</div>
+        </div>
+      </div>
+
+      <div class="form-group" [class.invalid-input]="productForm.get('description')?.invalid && productForm.get('description')?.touched">
+        <label for="description">Descripción</label>
+        <input formControlName="description" placeholder="Descripción del producto">
+        <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="error-message">
+          <div *ngIf="productForm.get('description')?.errors?.['required']">El campo es requerido!</div>
+          <div *ngIf="productForm.get('description')?.errors?.['minlength']">La descripción debe tener al menos 10 caracteres!</div>
+          <div *ngIf="productForm.get('description')?.errors?.['maxlength']">La descripción no puede tener más de 100 caracteres!</div>
+        </div>
+      </div>
+
+      <div class="form-group" [class.invalid-input]="productForm.get('logo')?.invalid && productForm.get('logo')?.touched">
+        <label for="logo">Logo</label>
+        <input type="text" formControlName="logo" placeholder="Logo del producto">
+        <div *ngIf="productForm.get('logo')?.invalid && productForm.get('logo')?.touched" class="error-message">
+          El campo es requerido!
+        </div>
+      </div>
+
+      <div class="form-group" [class.invalid-input]="productForm.get('date_release')?.invalid && productForm.get('date_release')?.touched">
+        <label for="date_release">Fecha Liberación</label>
+        <input type="date" formControlName="date_release" placeholder="Fecha de lanzamiento">
+        <div *ngIf="productForm.get('date_release')?.invalid && productForm.get('date_release')?.touched" class="error-message">
+          <div *ngIf="productForm.get('date_release')?.errors?.['required']">El campo es requerido!</div>
+          <div *ngIf="productForm.get('date_release')?.errors?.['futureDate']">La fecha debe ser igual o mayor a la fecha actual!</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="label-disabled" for="date_revision">Fecha Revisión</label>
+        <input  [disabled]="true" type="date" [value]="getRevisionDate()">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="button-reset" type="button" (click)="productForm.reset()">Reiniciar</button>
+      <button class="button-save" type="button" (click)="onSubmit()" [disabled]="isLoading">Guardar</button>
+    </div>
+  </form>
+</div>
+

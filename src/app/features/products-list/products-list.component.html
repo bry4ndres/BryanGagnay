@@ -1,0 +1,59 @@
+<div class="wrapper">
+  <div class="actions-container">
+    <input class="search-input" type="text" id="searchInput" placeholder="Search.." (input)="searchProduct($event)">
+    <button class="create-button" (click)="createProduct()">Agregar</button>
+  </div>
+
+  <div class="table-container" >
+    <div style="overflow-x: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Logo</th>
+            <th>Nombre del Producto</th>
+            <th>Descripción</th>
+            <th>Fecha de Liberación</th>
+            <th>Fecha de Reestructuración</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of filteredProducts; let i = index">
+            <td><img class="logo" [src]="product.logo" alt="logo"></td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.date_release | dateFormat }}</td>
+            <td>{{ product.date_revision | dateFormat}}</td>
+            <td>
+              <div class="dropdown">
+                <button class="dropdown-button" (click)="toggleDropdown(i)">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div class="dropdown-content" *ngIf="isDropdownVisible === i">
+                  <a (click)="editProduct(product); toggleDropdown(null)">Editar</a>
+                  <a (click)="deleteProduct(product); toggleDropdown(null)">Eliminar</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+    <div class="pagination-container">
+      <label>{{totalProductsNumber}} Resultados</label>
+      <select (change)="changeProductCount($event)">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+
+
+    </div>
+  </div>
+
+</div>
+
+<app-delete-product-modal [show]="showDeleteModal" [productToDelete]="productToDelete" (onClose)="closeDeleteModal()" (onDelete)="confirmDeleteProduct()"></app-delete-product-modal>
+
