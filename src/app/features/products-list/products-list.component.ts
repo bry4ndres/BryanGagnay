@@ -32,15 +32,19 @@ export class ProductsListComponent implements OnInit {
   ngOnInit(): void {
     this.loadingService.show();
 
-    this.productsService.getProducts().subscribe((res: any) => {
-
-      this.products = res.data as ProductDTO[];
-
-      this.changeProductCount({ target: { value: this.productsToShow } });
-      this.totalProductsNumber = this.products.length;
-
-      this.loadingService.hide();
-    });
+    this.productsService.getProducts().subscribe(
+      (res: any) => {
+        this.products = res.data as ProductDTO[];
+        this.changeProductCount({ target: { value: this.productsToShow } });
+        this.totalProductsNumber = this.products.length;
+        this.loadingService.hide();
+      },
+      (error) => {
+        console.error('An error occurred:', error);
+        this.loadingService.hide();
+        this.toastr.error('Error al conectar con el servidor');
+      }
+    );
   }
 
   changeProductCount(event: any) {

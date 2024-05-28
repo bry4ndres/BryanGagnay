@@ -91,6 +91,7 @@ export class ProductFormComponent implements OnInit {
             (error) => {
               this.toastr.error('Error al validar el ID del producto');
               this.isLoading = false;
+              this.loadingService.hide();
             }
           );
       }
