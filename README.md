@@ -14,4 +14,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 Run `ng test` to execute the unit tests via [Karma].
 
+## Backend
+Configure CORS to allow connections from the frontend
+
 
